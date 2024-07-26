@@ -1,0 +1,162 @@
+{% load static %}
+
+<!-- ========== Left Sidebar Start ========== -->
+<div class="leftside-menu">
+
+    <!-- Brand Logo Light -->
+    <a href="{% url 'index' %}" class="logo logo-light">
+        <span class="logo-lg">
+            <img src="{% static 'images/logo.png' %}" alt="logo">
+        </span>
+        <span class="logo-sm">
+            <img src="{% static 'images/logo-sm.png' %}" alt="small logo">
+        </span>
+    </a>
+
+    <!-- Brand Logo Dark -->
+    <a href="{% url 'index' %}" class="logo logo-dark">
+        <span class="logo-lg">
+            <img src="{% static 'images/logo-dark.png' %}" alt="dark logo">
+        </span>
+        <span class="logo-sm">
+            <img src="{% static 'images/logo-sm.png' %}" alt="small logo">
+        </span>
+    </a>
+
+    <!-- Sidebar -left -->
+    <div class="h-100" id="leftside-menu-container" data-simplebar>
+        <!--- Sidemenu -->
+        <ul class="side-nav">
+
+
+            {% for item in sidebar_items %}
+
+                {% if item.nav_type == "title" %}
+
+                    <li class="side-nav-title">{{item.name}}</li>
+
+                {% else %}
+
+                    {% if item.children %}
+                    
+                        {% comment %} <li class="side-nav-item {% if item.segment in segment %} menuitem-active {% endif %}"> {% endcomment %}
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#{{item.segment}}_segment" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
+                                <i class="{{item.icon_class}}"></i>
+                                {%if item.badge %}
+                                    {{item.badge|safe}}
+                                {%else%}
+                                <span class="menu-arrow"></span>
+                                {%endif%}
+                                <span> {{item.name}} </span>
+                            </a>
+                            <div class="collapse" id="{{item.segment}}_segment">
+                                <ul class="side-nav-second-level">
+                                {% for subitem in item.children %}
+
+                                    {% if subitem.children %}
+
+                                        <li class="side-nav-item">
+                                            <a data-bs-toggle="collapse" href="#{{subitem.segment}}_segment" aria-expanded="false" aria-controls="{{subitem.segment}}_segment">
+                                                <span>{{ subitem.name }} </span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+                                            <div class="collapse" id="{{subitem.segment}}_segment">
+                                                <ul class="side-nav-third-level">
+                                                    {% for third_level in subitem.children %}
+
+                                                        {% if third_level.children %}
+
+                                                            <li class="side-nav-item">
+                                                                <a data-bs-toggle="collapse" href="#{{third_level.segment}}_segment" aria-expanded="false" aria-controls="{{third_level.segment}}_segment">
+                                                                    <span>{{third_level.name}} </span>
+                                                                    <span class="menu-arrow"></span>
+                                                                </a>
+                                                                <div class="collapse" id="{{third_level.segment}}_segment">
+                                                                    <ul class="side-nav-forth-level">
+
+                                                                        {% for fourth_level in third_level.children %}
+
+                                                                            <li>
+                                                                                {% if fourth_level.url == '#' %}
+                                                                                    <a href="javascript:void(0);">{{ fourth_level.name }}</a>
+                                                                                {% else %}
+                                                                                    <a href="{% url fourth_level.url %}">{{ fourth_level.name }}</a>
+                                                                                {% endif %}
+                                                                            </li>
+
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                            </li>
+
+                                                        {%else%}
+                                                            <li>
+                                                                {% if third_level.url == '#' %}
+                                                                    <a href="javascript:void(0);">{{ third_level.name }}</a>
+                                                                {% else %}
+                                                                    <a href="{% url third_level.url %}">{{ third_level.name }}</a>
+                                                                {% endif %}
+                                                            </li>
+                                                        {%endif%}
+
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    {% else %}
+
+                                        {% comment %} <li class="{% if subitem.segment in segment %} menuitem-active {% endif %}"> {% endcomment %}
+                                        <li>
+                                            {% if subitem.url == '#' %}
+                                                <a href="javascript:void(0);">{{ subitem.name }}</a>
+                                            {% else %}
+                                                <a href="{% url subitem.url %}" target="{% if item.segment == 'layouts' %} _blank {%endif%}">{{ subitem.name }}</a>
+                                            {% endif %}
+                                        </li>
+
+                                    {% endif %}
+
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+
+                    {% else %}
+                        {% comment %} <li class="side-nav-item {% if item.segment in segment %} menuitem-active {% endif %}"> {% endcomment %}
+                        <li class="side-nav-item">
+
+                            {% if item.url == '#' %}
+                                <a href="javascript:void(0);" class="side-nav-link">
+                                    <i class="{{item.icon_class}}"></i>
+                                    {%if item.badge%}
+                                        {{item.badge|safe}}
+                                    {%endif%}
+                                    <span> {{item.name}} </span>
+                                </a>
+                            {% else %}
+                                <a href="{% url item.url %}" class="side-nav-link">
+                                    <i class="{{item.icon_class}}"></i>
+                                    {%if item.badge%}
+                                        {{item.badge|safe}}
+                                    {%endif%}
+                                    <span> {{item.name}} </span>
+                                </a>
+                            {% endif %}
+                           
+                        </li>
+                    {% endif %}
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </ul>
+        <!--- End Sidemenu -->
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- ========== Left Sidebar End ========== -->
