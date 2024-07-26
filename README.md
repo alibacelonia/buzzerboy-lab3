@@ -39,6 +39,15 @@ $ pip install -r requirements.txt
 
 <br />
 
+> 👉 Set Up Database
+
+```bash
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
+```
+
+<br />
+
 > 👉 Collect Static Files
 
 ```bash
