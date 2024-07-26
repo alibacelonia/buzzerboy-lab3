@@ -62,7 +62,6 @@ At this point, the app runs at [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/
 <br>
 
 
-## Deliverables of the task
+## Deliverables
 
-* [Deliverable 1](#versions)
-* [Deliverable 2](#demo)
+> View [Lab 3 - Task 1 Markdown File](https://github.com/alibacelonia/buzzerboy-lab3/blob/main/submission-lab3/lab3-task1.md) 👀
